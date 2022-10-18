@@ -11,7 +11,12 @@ export default function OrderEntry(props) {
       <Options optionType="scoops" />
       <Options optionType="toppings" />
       <h2>Grand total: {formatCurrency(totals.scoops + totals.toppings)}</h2>
-      <Button onClick={() => setOrderPhase("review")}>Order Sundae!</Button>
+      <Button
+        onClick={() => setOrderPhase("review")}
+        disabled={!totals.scoops > 0}
+      >
+        Order Sundae!
+      </Button>
     </>
   );
 }
