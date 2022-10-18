@@ -29,7 +29,7 @@ export function OrderDetailsProvider(props) {
   };
 
   const resetOrder = () => {
-    setOptionCounts({});
+    setOptionCounts({ scoops: {}, toppings: {} });
   };
 
   // utility function to derive totals from options counts state value
