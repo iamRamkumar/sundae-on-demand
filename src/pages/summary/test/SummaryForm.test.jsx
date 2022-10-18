@@ -19,19 +19,18 @@ test("Initial Conditions", () => {
   expect(confirmButton).toBeDisabled();
 });
 
-test("checkbox check disable and enable button", () => {
+test("checkbox check disable and enable button", async () => {
   render(<SummaryForm />);
-
   const checkBox = screen.getByRole("checkbox", {
     name: /terms and conditions/i,
   });
   const confirmButton = screen.getByRole("button", { name: /confirm order/i });
 
-  userEvent.click(checkBox);
+  await userEvent.click(checkBox);
 
   expect(confirmButton).toBeEnabled();
 
-  userEvent.click(checkBox);
+  await userEvent.click(checkBox);
   expect(confirmButton).toBeDisabled();
 });
 
@@ -44,14 +43,12 @@ test("popover respond to hover", async () => {
   expect(nullPopOver).not.toBeInTheDocument();
   // popover appears upon mouseover of checkbox label
   const termsAndConditions = screen.getByText(/terms and conditions/i);
-  userEvent.hover(termsAndConditions);
+  await userEvent.hover(termsAndConditions);
 
   const popover = screen.getByText(/no ice cream will actually be delivered/i);
   expect(popover).toBeInTheDocument();
   // popover disappears when we mouseout
 
-  userEvent.unhover(termsAndConditions);
-  await waitForElementToBeRemoved(() =>
-    screen.queryByText(/no ice cream will actually be delivered/i)
-  );
+  await userEvent.unhover(termsAndConditions);
+  expect(popover).not.toBeInTheDocument();
 });
